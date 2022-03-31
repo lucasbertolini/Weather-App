@@ -1,0 +1,47 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  text-align: center;
+  margin-top: 10px;
+}
+.input {
+  width: 215px;
+  height: 30px;
+  padding: 5px;
+  font-size: 18px;
+  box-sizing: border-box;
+  border: none;
+  text-decoration: underline;
+  outline: none;
+  margin-right: 10px;
+}
+.submit {
+  width: 100px;
+  box-sizing: border-box;
+  padding: 5px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 8px;
+}
+.tempo {
+  display: flex;
+  text-align: center;
+  justify-content: space-around;
+  text-transform: uppercase;
+  padding: 10px;
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+.cidade {
+  border: 2px solid black;
+  margin: 30px 10px 0 0;
+  width: 200px;
+  height: 200px;
+  padding: 10px;
+  border-radius: 10px;
+  font-size: 18px;
+  font-weight: bold;
+}
