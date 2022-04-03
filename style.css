@@ -91,7 +91,7 @@ nav {
 .nav-bar svg {
   margin-right: 10px;
 }
-@media screen and (max-width: 330px) {
+@media screen and (max-width: 420px) {
   .tempo {
     padding-left: 50px;
   }
