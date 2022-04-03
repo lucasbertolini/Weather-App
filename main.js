@@ -1,10 +1,13 @@
 
-document.querySelector('.submit').addEventListener('click', ()=>{
+let CITY_NAME = document.querySelector('.input');
+CITY_NAME.focus()
+document.querySelector('.submit').addEventListener('click', (e)=>{
+    e.preventDefault();
     let data_info
-    
-    let CITY_NAME = document.querySelector('.input').value;
+    if(!CITY_NAME.value) return console.error('Digite um nome de cidade válido!');
     getApi();
-    if(!CITY_NAME) return
+    CITY_NAME.value = '';
+    CITY_NAME.focus()
 
 })
 
@@ -12,15 +15,18 @@ function getApi(){
     let API_KEY = 'd7009a0ec2a75fbdc312380c2578e2f7';
     let CITY_NAME = document.querySelector('.input').value;
     let language = 'pt_br'
-    if(!CITY_NAME) return console.error('Digite um nome de cidade válido!');
+   
 
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${CITY_NAME}&lang=${language}&appid=${API_KEY}&units=metric`)
     .then(res => res.json())
     .then(data => data_info = data)
     .then(data_info => {
+        if(data_info.cod == '404')return console.error('Digite um nome válido!!!')
         createElement();
-        return data_info;
-    });
+        return data_info
+    })
+    .catch(err => console.error(err))
+
 }
 function createElement(){
     console.log(data_info)
@@ -37,7 +43,8 @@ function createElement(){
 
     let cityT = document.createElement('p');
     cityT.setAttribute('id', 'city-temperature');
-    cityT.textContent = data_info.main.temp;
+    cityT.setAttribute('class', 'city-temp')
+    cityT.textContent = parseInt(data_info.main.temp);
     div.appendChild(cityT);
 
     let cityW = document.createElement('p');
@@ -45,40 +52,15 @@ function createElement(){
     cityW.textContent = data_info.weather[0].description;
     div.appendChild(cityW);
 
-    let divMenosInfo = document.createElement('div');
-    divMenosInfo.setAttribute('class', 'menos-info');
-    div.appendChild(divMenosInfo);
-
     let minTemp = document.createElement('p');
-    minTemp.textContent = `Min. Temp: ${data_info.main.temp_min}`;
-    divMenosInfo.appendChild(minTemp);
+    minTemp.textContent = `Min. Temp: ${parseInt(data_info.main.temp_min)}`;
+    div.appendChild(minTemp);
     
     let maxTemp = document.createElement('p');
-    maxTemp.textContent = `max temp: ${data_info.main.temp_max}`;
-    divMenosInfo.appendChild(maxTemp);
+    maxTemp.textContent = `max temp: ${parseInt(data_info.main.temp_max)}`;
+    div.appendChild(maxTemp);
 
-    let umidade = document.createElement('p');
-    umidade.textContent = `úmidade: ${data_info.main.humidity}`;
-    divMenosInfo.appendChild(umidade);
 
-    let pressao = document.createElement('p');
-    pressao.textContent = `Pressão: ${data_info.main.pressure}`;
-    divMenosInfo.appendChild(pressao);
-
-    let divNormal = document.createElement('div');
-    divNormal.setAttribute('class', 'normal');
-    divNormal.setAttribute('id', 'expandir');
-    div.appendChild(divNormal);
-
-    document.getElementById('expandir').addEventListener('click', (e)=> {
-        document.querySelector('.cidade').classList.toggle('expandido');
-        document.querySelector('.menos-info').classList.toggle('extra-info');
-        document.querySelector('.normal').classList.toggle('expandir');
-    })
 
 }
 
-
-/*
-
-*/
